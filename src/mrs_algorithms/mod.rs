@@ -5,15 +5,16 @@
 //! chaos-theoretic approaches.
 
 pub mod topology;
-pub mod chaos; 
+pub mod chaos_metrics; 
 pub mod info_theory;
-pub mod chromatic;
+pub mod chromatic_risk;
+pub mod data_integration;
 
 // Re-export the main computation functions for convenient access
 pub use topology::compute_topological_risk;
-pub use chaos::compute_chaos_metrics;
+pub use chaos_metrics::compute_chaos_metrics;
 pub use info_theory::compute_information_risk;
-pub use chromatic::compute_chromatic_risk;
+pub use chromatic_risk::compute_chromatic_risk;
 
 /// Computes a complete gRNARiskAssessment for a given genomic target
 /// by orchestrating all mathematical dimensions.
