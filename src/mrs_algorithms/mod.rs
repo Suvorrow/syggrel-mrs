@@ -15,6 +15,7 @@ pub use topology::compute_topological_risk;
 pub use chaos_metrics::compute_chaos_metrics;
 pub use info_theory::compute_information_risk;
 pub use chromatic_risk::compute_chromatic_risk;
+pub use data_integration::load_contact_matrix;
 
 /// Computes a complete gRNARiskAssessment for a given genomic target
 /// by orchestrating all mathematical dimensions.
