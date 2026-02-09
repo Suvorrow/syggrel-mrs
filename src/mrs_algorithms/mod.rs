@@ -3,8 +3,7 @@
 //! This module provides the main computational engines that transform genomic targets 
 //! into multi-dimensional risk metrics using topological, information-theoretic, and 
 //! chaos-theoretic approaches.
-
-use rayon::prelude::*;
+#[allow(unused_imports)]
 use crate::types::{GenomicTarget, GRNARiskAssessment};
 
 // ---- Module Declarations ----
