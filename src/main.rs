@@ -1,8 +1,9 @@
 use dioxus::prelude::*;
 use dioxus::LaunchBuilder;
 use dioxus::desktop::{Config, LogicalSize, WindowBuilder};
-use syggrel_mrs::core::routes::{AppRouter, Route};
+use syggrel_mrs::{App, style::STYLE};
 use std::process::ExitCode;
+
 
 // ---- Constants ----
 const APP_TITLE: &str = "Syggrel-MRS";
@@ -37,62 +38,25 @@ fn init_logging() -> Result<(), Box<dyn std::error::Error>> {
 
 // ---- Application Setup ----
 fn setup() -> Result<(), Box<dyn std::error::Error>> {
+    let style = STYLE;
     // Configure the desktop window
     let window = WindowBuilder::new()
         .with_title(APP_TITLE)
-        .with_inner_size(LogicalSize::new(WINDOW_WIDTH, WINDOW_HEIGHT));
+        .with_inner_size(LogicalSize::new(WINDOW_WIDTH, WINDOW_HEIGHT))
+        .with_decorations(false);
 
     let config = Config::default()
-        .with_window(window);
-
+        .with_window(window)
+        .with_custom_head(format!(
+            r#"
+        <title>{APP_TITLE}</title>
+        <style>{style}</style>
+        "#
+        ));
+    
     LaunchBuilder::new()
         .with_cfg(config)
-        .launch(AppRouter);
+        .launch(App);
 
     Ok(())
-}
-
-// Define 'app' as a Dioxus component
-#[component]
-fn app() -> Element {
-    rsx! {
-        div { class: "app-container",
-            NavigationMenu {}
-            AppRouter {}
-        }
-    }
-}
-
-#[component]
-fn NavigationMenu() -> Element {
-    // Get access to the current route signal from the AppRouter component's scope.
-
-    let mut current_route = use_context::<Signal<Route>>();
-
-    rsx! {
-        nav { class: "navigation-menu",
-            ul { class: "nav-list",
-                li {
-                    class: if current_route() == Route::Home { "nav-item active" } else { "nav-item" },
-                    onclick: move |_| current_route.set(Route::Home),
-                    "Home"
-                }
-                li {
-                    class: if current_route() == Route::Analysis { "nav-item active" } else { "nav-item" },
-                    onclick: move |_| current_route.set(Route::Analysis),
-                    "Analysis"
-                }
-                li {
-                    class: if current_route() == Route::Data { "nav-item active" } else { "nav-item" },
-                    onclick: move |_| current_route.set(Route::Data),
-                    "Data"
-                }
-                li {
-                    class: if current_route() == Route::Settings { "nav-item active" } else { "nav-item" },
-                    onclick: move |_| current_route.set(Route::Settings),
-                    "Settings"
-                }
-            }
-        }
-    }
 }

@@ -13,8 +13,9 @@ ndarray = "0.17.2"
 numpy = "0.28.0"
 nalgebra = "0.34.1"
 petgraph = "0.8.3"
-pyo3 = { version = "=0.28.0", features = ["abi3-py311"], default-features = false }
+pyo3 = { version = "=0.28.2", features = ["abi3-py311"], default-features = false }
 statrs = "0.18.0"
+tao = "0.34.5"
 
 # Image processing
 image = "0.25.9"
