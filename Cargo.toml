@@ -1,13 +1,29 @@
 [package]
 name = "syggrel-mrs"
-version = "0.1.0"
 authors = ["Suvorrow <suvoraum@gmail.com>"]
 edition = "2024"
+version = { workspace = true }
+rust-version = { workspace = true }
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[dependencies]
-dioxus = { version = "0.7.3", features = ["router"] }
+[workspace]
+members = [
+    ".", 
+    "mrs_exploring_kit",
+    "ui",
+]
+
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+rust-version = "1.85"
+
+[workspace.dependencies]
+dioxus = { version = "0.7.3", features = ["router", "desktop"] }
+dioxus-desktop = { version = "0.7.3", features = ["transparent",]}
+dioxus-router = "0.7.3"
 # Core mathematical computing
 ndarray = "0.17.2"
 numpy = "0.28.0"
@@ -15,11 +31,11 @@ nalgebra = "0.34.1"
 petgraph = "0.8.3"
 pyo3 = { version = "=0.28.2", features = ["abi3-py311"], default-features = false }
 statrs = "0.18.0"
-tao = "0.34.5"
+tao = "0.35.0"
 
 # Image processing
-image = "0.25.9"
-imageproc = "0.26.0"
+image = "0.25.10"
+imageproc = "0.26.1"
 
 # Serialization and configuration
 serde ={ version = "1.0", features = ["derive"] }
@@ -30,15 +46,34 @@ thiserror = "2.0.18"
 
 # Logging
 tracing = "0.1"
-tracing-subscriber = "0.3"
+tracing-subscriber = "0.3.23"
 
 # Performance
 rayon = "1.10"
 
+[dependencies]
+dioxus = { workspace = true }
+dioxus-router = { workspace = true }
+
+ui = { path = "ui" }
+mrs_exploring_kit ={ path = "mrs_exploring_kit" }
+
+ndarray ={ workspace = true }
+numpy = { workspace = true }
+pyo3 = { workspace = true }
+rayon ={ workspace = true }
+serde = { workspace = true }
+nalgebra = { workspace = true }
+statrs = { workspace = true }
+petgraph = { workspace = true }
+tao = {workspace = true }
+image = { workspace = true }
+imageproc = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
 [dev-dependencies]
 tokio-test = "0.4"
 
-[features]
-default = ["desktop"]
-web = ["dioxus/web"]
-desktop = ["dioxus/desktop"]

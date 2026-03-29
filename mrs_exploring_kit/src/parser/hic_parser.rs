@@ -1,6 +1,7 @@
 use ndarray::Array2;
 use std::process::Command;
 use std::path::Path;
+use std::fs;
 
 // Use type aliases for domain-specific clarity
 type ContactFrequency = f64;
@@ -63,6 +64,7 @@ impl std::fmt::Display for NormalizationMethod {
 pub fn extract_contact_matrix<P: AsRef<Path>>(
     hic_file_path: P,
     config: &HiCConfig,
+    output_path: Option<&Path>,
 ) -> Result<ContactMatrix, Box<dyn std::error::Error>> {
     let hic_path = hic_file_path.as_ref();
 
@@ -113,6 +115,15 @@ pub fn extract_contact_matrix<P: AsRef<Path>>(
         ).into());
     }
 
+    if let Some(path) = output_path {
+        if let Some(parent) = path.parent() {
+            fs::create_dir_all(parent)?;
+        }
+
+        // Write the raw COO data to file
+        fs::write(path, &output.stdout)?;
+    }
+
     // Parse the output into a matrix
     parse_coo_output(&output.stdout, config)
 }
@@ -128,13 +139,12 @@ fn parse_coo_output(
     let mut max_bin_index = 0;
     for line in content.lines() {
         let parts: Vec<&str> = line.split_whitespace().collect();
-        if parts.len() >= 3 {
-            if let (Ok(bin1_str), Ok(bin2_str)) = (
+        if parts.len() >= 3 &&
+            let (Ok(bin1_str), Ok(bin2_str)) = (
                 parts[0].parse::<GenomicBinIndex>(),
                 parts[1].parse::<GenomicBinIndex>(),
             ) {
-                max_bin_index = max_bin_index.max(bin1_str).max(bin2_str);
-            }
+            max_bin_index = max_bin_index.max(bin1_str).max(bin2_str);
         }
     }
 
@@ -153,17 +163,16 @@ fn parse_coo_output(
     // Parse COO format: bin1\tbin2\tcount\n
     for line in content.lines() {
         let parts: Vec<&str> = line.split_whitespace().collect();
-        if parts.len() >= 3 {
-            if let (Ok(bin1_str), Ok(bin2_str), Ok(count_str)) = (
+        if parts.len() >= 3 &&
+            let (Ok(bin1_str), Ok(bin2_str), Ok(count_str)) = (
                 parts[0].parse::<GenomicBinIndex>(),
                 parts[1].parse::<GenomicBinIndex>(),
                 parts[2].parse::<ContactFrequency>(),
             ) {
-                // Only fill matrix if within bounds
-                if bin1_str < matrix_size.value() && bin2_str < matrix_size.value() {
-                    contact_matrix[[bin1_str, bin2_str]] = count_str;
-                    contact_matrix[[bin2_str, bin1_str]] = count_str;    // Ensure symmetry
-                }
+            // Only fill matrix if within bounds
+            if bin1_str < matrix_size.value() && bin2_str < matrix_size.value() {
+                contact_matrix[[bin1_str, bin2_str]] = count_str;
+                contact_matrix[[bin2_str, bin1_str]] = count_str;    // Ensure symmetry
             }
         }
     }

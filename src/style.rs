@@ -1,1 +1,0 @@
-pub const STYLE: &str = include_str!("../assets/style.css");

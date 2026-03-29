@@ -1,0 +1,8 @@
+[package]
+name = "mrs_exploring_kit"
+edition = "2024"
+version.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+ndarray ={ workspace = true }

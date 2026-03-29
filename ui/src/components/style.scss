@@ -1,0 +1,21 @@
+// ---- View Container (Home, Data, Settings) ----
+.view-container {
+    padding: 20px;
+    color: var(--color-text-view-default);
+    height: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.view-container h1 {
+    font-size: var(--font-size-view-heading);
+    margin-bottom: 8px;
+    color: var(--color-text-view-heading);
+    margin-top: 0;
+}
+
+.view-container p {
+    font-size: var(--font-size-view-default);
+    color: var(--color-text-view-muted);
+    margin: 0;
+}

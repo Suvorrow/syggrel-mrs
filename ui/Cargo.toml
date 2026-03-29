@@ -1,0 +1,21 @@
+[package]
+name = "ui"
+rust-version = { workspace = true }
+version = { workspace = true }
+edition = "2024"
+
+[dependencies]
+dioxus = { workspace = true, features = ["router"] }
+dioxus-desktop = { workspace = true, features = ["transparent"] }
+dioxus-router = { workspace = true }
+
+mrs_exploring_kit ={ path = "../mrs_exploring_kit"}
+
+[build-dependencies]
+rsass = "0.29"
+glob = "0.3"
+
+[features]
+default = ["desktop"]
+web = ["dioxus/web"]
+desktop = ["dioxus/desktop"]

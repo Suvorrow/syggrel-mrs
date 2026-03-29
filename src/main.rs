@@ -1,14 +1,13 @@
 use dioxus::prelude::*;
 use dioxus::LaunchBuilder;
 use dioxus::desktop::{Config, LogicalSize, WindowBuilder};
-use syggrel_mrs::{App, style::STYLE};
+use syggrel_mrs::App;
 use std::process::ExitCode;
-
 
 // ---- Constants ----
 const APP_TITLE: &str = "Syggrel-MRS";
-const WINDOW_WIDTH: f64 = 1280.0;
-const WINDOW_HEIGHT: f64 = 720.0;
+const WINDOW_WIDTH: f64 = 1536.0;
+const WINDOW_HEIGHT: f64 = 864.0;
 
 // ---- Main Entry Point ----
 fn main() -> ExitCode {
@@ -38,20 +37,27 @@ fn init_logging() -> Result<(), Box<dyn std::error::Error>> {
 
 // ---- Application Setup ----
 fn setup() -> Result<(), Box<dyn std::error::Error>> {
-    let style = STYLE;
+    // Get the embedded CSS content from the ui crate
+    let css_content = ui::get_compiled_css();
+
     // Configure the desktop window
     let window = WindowBuilder::new()
         .with_title(APP_TITLE)
         .with_inner_size(LogicalSize::new(WINDOW_WIDTH, WINDOW_HEIGHT))
-        .with_decorations(false);
+        .with_decorations(false)
+        .with_transparent(true)
+        .with_minimizable(true)
+        .with_maximizable(true)
+        .with_resizable(true);
 
     let config = Config::default()
         .with_window(window)
         .with_custom_head(format!(
             r#"
-        <title>{APP_TITLE}</title>
-        <style>{style}</style>
-        "#
+        <title>{}</title>
+        <style>{}</style>
+        "#,
+            APP_TITLE, css_content
         ));
     
     LaunchBuilder::new()

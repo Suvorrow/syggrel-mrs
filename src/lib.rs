@@ -3,14 +3,11 @@
 //! Core mathematical framework for assessing gRNA safety through
 //! topological and information-theoretic, and chaos-theoretic biomarkers.
 
+pub mod core;
 pub mod types;
 pub mod errors;
-pub mod mrs_algorithms;
-pub mod core;
-pub mod style;
 
 // Re-export the algorithms through mrs_algorithms
 pub use core::routes::App;
-pub use mrs_algorithms::*;
 pub use types::*;
 pub use errors::*;
