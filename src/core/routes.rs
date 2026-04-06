@@ -1,68 +1,133 @@
 #![allow(non_snake_case)]
 use dioxus::prelude::*;
-use dioxus_router::{Routable, Router, Outlet};
-use dioxus::desktop;
-use ui::components::{HomeView, DataView, SettingsView, ToolsView,};
+use dioxus::desktop::{window, use_window};
+use dioxus_router::{Routable, Outlet};
+use ui::components::{
+    dropdown::{dropdown_header, dropdown_item, DropdownPanel},
+};
+use ui::components::{HomeView, DataView, SettingsView, ToolsView};
 use ui::components::parser::ParserToolView;
 use crate::core::state::{UiState, DropdownType, ActiveToolType};
 
+#[derive(Clone, Copy, PartialEq)]
+enum ActiveNavButton {
+    Home,
+    Tools,
+    Data,
+    Settings,
+    //Go,
+    //Run,
+    //Terminal,
+    //Help,
+}
+
 #[component]
 pub fn AppLayout() -> Element {
+    let drg_window = use_window();
     let mut ui_state = use_signal(|| UiState::None);
-    let current_route = use_route::<Route>();
     let navigator = use_navigator();
 
     let mut is_maximized = use_signal(|| false);
 
-    let mut dropdown_hovered = use_signal(|| false);
+    let mut active_nav = use_signal(|| ActiveNavButton::Home);
 
-    // Handle clicks outside to close dropdown
-    let handle_tools_click = move |_| {
-        match ui_state() {
-            UiState::DropdownOpen(DropdownType::Tools) => ui_state.set(UiState::None),
-            _ => ui_state.set(UiState::DropdownOpen(DropdownType::Tools)),
+    // Close any open dropdown
+    let mut close_dropdown = move || {
+        if matches!(ui_state(), UiState::DropdownOpen(_)) {
+            ui_state.set(UiState::None);
         }
     };
 
-    // Define the click handler for the container
+    // Click handler for container: close dropdown if clicking outside
     let handle_container_click = move |_| {
+        close_dropdown();
     };
+
+    // Generic handler for opening a specific dropdown type
+    let mut toggle_dropdown = move |dropdown_type: DropdownType| {
+        match ui_state() {
+            UiState::DropdownOpen(current) if current == dropdown_type => {
+                ui_state.set(UiState::None); // Close if already open
+            }
+            _ => {
+                ui_state.set(UiState::DropdownOpen(dropdown_type));
+            }
+        }
+    };
+
+    let tools_dropdown_items = vec![
+        dropdown_item("Parser", EventHandler::new(move |_| {
+            ui_state.set(UiState::ActiveTool(ActiveToolType::Parser));
+        })),
+        dropdown_header(" ---------------- "),
+        dropdown_item("Settings", EventHandler::new(move |_| {
+            navigator.push(Route::Settings {});
+        })),
+    ];
 
     rsx! {
         div { class: "app-container", onclick: handle_container_click,
             // Сustom navigation bar
-            div { class: "top-nav-bar",
+            div {
+                class: "top-nav-bar",
+                onmousedown: move |_| {
+                    let _ = drg_window.drag_window();
+                },
                 div { class: "nav-spacer" }
                 div { class: "button-container",
                     button {
                         id: "home-button",
-                        class: if matches!(current_route, Route::Home {}) { "nav-btn active" } else { "nav-btn" },
+                        class: if active_nav() == ActiveNavButton::Home { "nav-btn active" } else { "nav-btn" },
                         onclick: move |_| {
+                            active_nav.set(ActiveNavButton::Home);
                             navigator.push(Route::Home {});
                         },
+                        onmousedown: move |evt| evt.stop_propagation(),
                         "Home"
                     }
-                    button {
-                        id: "tools-button",
-                        class: if matches!(current_route, Route::Tools {}) { "nav-btn active" } else { "nav-btn" },
-                        onclick: handle_tools_click,
-                        onmouseenter: move |_| {},
-                        "Tools"
+
+                    // Tools button with dropdown anchor
+                    div { class: "dropdown-anchor",
+                        button {
+                            id: "tools-button",
+                            class: if active_nav() == ActiveNavButton::Tools { "nav-btn active" } else { "nav-btn" },
+                            onclick: move |evt| {
+                                evt.stop_propagation();
+                                active_nav.set(ActiveNavButton::Tools);
+                                toggle_dropdown(DropdownType::Tools);
+                            },
+                            onmousedown: move |evt| evt.stop_propagation(),
+                            onmouseenter: move |_| {},
+                            "Tools"
+                        }
+                        if matches!(ui_state(), UiState::DropdownOpen(DropdownType::Tools)) {
+                            DropdownPanel {
+                                items: tools_dropdown_items.clone(),
+                                is_open: true,
+                                on_close: move |_| close_dropdown(),
+                                class: "tools-dropdown",
+                            }
+                        }
                     }
+
                     button {
                         id: "data-button",
-                        class: if matches!(current_route, Route::Data {}) { "nav-btn active" } else { "nav-btn" },
+                        class: if active_nav() == ActiveNavButton::Data { "nav-btn active" } else { "nav-btn" },
                         onclick: move |_| {
+                            active_nav.set(ActiveNavButton::Data);
                             navigator.push(Route::Data {});
                         },
+                        onmousedown: move |evt| evt.stop_propagation(),
                         "Data"
                     }
                     button {
                         id: "settings-button",
-                        class: if matches!(current_route, Route::Settings {}) { "nav-btn active" } else { "nav-btn" },
+                        class: if active_nav() == ActiveNavButton::Settings { "nav-btn active" } else { "nav-btn" },
                         onclick: move |_| {
+                            active_nav.set(ActiveNavButton::Settings);
                             navigator.push(Route::Settings {});
                         },
+                        onmousedown: move |evt| evt.stop_propagation(),
                         "Settings"
                     }
                     button { class: "nav-btn", onclick: move |_| {}, "Go" }
@@ -74,7 +139,8 @@ pub fn AppLayout() -> Element {
                 div { class: "window-controls",
                     button {
                         class: "window-btn minimize-btn",
-                        onclick: move |_| desktop::window().set_minimized(true),
+                        onclick: move |_| window().set_minimized(true),
+                        onmousedown: move |evt| evt.stop_propagation(),
                         "▭"
                     }
                     // Maximize/Restore button
@@ -82,18 +148,21 @@ pub fn AppLayout() -> Element {
                         class: if is_maximized() { "window-btn maximize-btn maximized" } else { "window-btn maximize-btn" },
                         onclick: move |_| {
                             is_maximized.set(!is_maximized());
-                            desktop::window().toggle_maximized();
+                            window().toggle_maximized();
                         },
+                        onmousedown: move |evt| evt.stop_propagation(),
                         "△"
                     }
                     // Close button
                     button {
                         class: "window-btn close-btn",
-                        onclick: move |_| desktop::window().close(),
+                        onclick: move |_| window().close(),
+                        onmousedown: move |evt| evt.stop_propagation(),
                         "✕"
                     }
                 }
             }
+
             // Content area - Render based on the overall UI state (ui_state)
             div { class: "content-area",
                 // Check the overall UI state first
@@ -101,38 +170,8 @@ pub fn AppLayout() -> Element {
                     UiState::ActiveTool(ActiveToolType::Parser) => rsx! {
                         ParserToolView { close_tool: move || ui_state.set(UiState::None) }
                     },
-                    UiState::DropdownOpen(DropdownType::Tools) => rsx! {
-                        div {
-                            class: "tools-dropdown-panel",
-                            tabindex: "-1",
-                            role: "menu",
-                            // Capture hover state on the dropdown itself
-                            onmouseenter: move |_| dropdown_hovered.set(true),
-                            onmouseleave: move |_| dropdown_hovered.set(false),
 
-                            button {
-                                class: "dropdown-item nav-btn",
-                                role: "menuitem",
-                                onclick: move |_| {
-                                    ui_state.set(UiState::None);
-                                    ui_state.set(UiState::ActiveTool(ActiveToolType::Parser))
-                                },
-                                "Parser"
-                            }
-                            button {
-                                class: "dropdown-item nav-btn",
-                                role: "menuitem",
-                                onclick: move |_| {
-                                    ui_state.set(UiState::None);
-                                },
-                                "Other Tool N2"
-                                // Add other items specific to the Tools dropdown here
-                            }
-                        }
-                    },
                     _ => rsx! {
-                        // When no special UI state is active, render the standard view
-                        // based on the current_view signal
                         Outlet::<Route> {}
                     },
                 }
@@ -171,10 +210,3 @@ pub enum Route {
 #[component] fn Settings() -> Element { rsx! {
     SettingsView {}
 } }
-
-#[component]
-pub fn App() -> Element {
-    rsx! {
-        Router::<Route> {}
-    }
-}

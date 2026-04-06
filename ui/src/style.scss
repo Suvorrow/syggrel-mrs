@@ -15,13 +15,15 @@ body {
     --color-bg-app: #3e3e3e;
     --color-bg-nav: #3a4c4d;
     --color-bg-nav-active: #224252;
-    --color-bf-nav-hover: #2a2c3e;
+    --color-bg-nav-hover: #2a2c3e;
     --color-bg-content: #1c1c1c;
     --color-bg-controls: transparent;
     --color-bg-controls-hover: rgba(252, 254, 255, 0.1);
     --color-bg-controls-minimize-hover: #6a5a5a;
     --color-bg-controls-maximize-hover: #6a5a5a;
-    --color-bg-controls-close-hover: #cc5533;
+    --color-bg-controls-close-hover: #bb5533;
+    --color-border-component: rgba(244, 248, 252, 0.1);
+    --color-box-shadow: rgba(3, 9, 9, 0.3);
     --color-text-nav: #bcbcbc;
     --color-text-nav-active: #ffffff;
     --color-text-nav-hover: #ffffff;
@@ -48,6 +50,7 @@ body {
 
     // Borders / Radius
     --radius-controls: 2px;
+    --radius-component: 4px;
 
     // Effects / Transitions
     --transition-controls-bg: 0.3s;
@@ -56,6 +59,7 @@ body {
 
 // ---- App Container ----
 .app-container {
+    position: relative;
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -69,15 +73,15 @@ body {
 // ---- Top Navigation Bar ----
 .top-nav-bar {
     height: var(--size-nav-height);
+    position: relative;    // Establish positioning context for window controls
     background-color: var(--color-bg-nav);
     display: flex;
     flex-direction: row;
-    align-items: stretch;    // ??? ??? ???
-    justify-content: flex-start;
+    align-items: center;    // ??? ??? ???
+    justify-content: space-between;    // flex-start
     box-shadow: 0 1px 0 rgba(0, 0, 0, .35);
     margin: 0;
     padding: 0;
-    position: relative;    // Establish positioning context for window controls
     overflow: visible;    // Allow window controls (positioned absolutely) to be visible
 }
 

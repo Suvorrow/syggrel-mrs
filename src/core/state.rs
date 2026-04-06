@@ -1,11 +1,11 @@
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, PartialEq, Debug)]
 pub enum UiState {
     None,
     DropdownOpen(DropdownType),
     ActiveTool(ActiveToolType),
 }
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Debug)]
 pub enum DropdownType {
     Tools,
 }
