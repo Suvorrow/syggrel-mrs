@@ -1,0 +1,12 @@
+[package]
+name = "file_picker"
+edition.workspace = true
+version.workspace = true
+rust-version.workspace = true
+description = "Native file dialog utilities for Syggrel-MRS software"
+
+[dependencies]
+rfd = "0.17"
+
+[lints.rust]
+unexpected_cfgs ={ level = "warn", check-cfg = ["cfg(docsrs)"] }

@@ -31,6 +31,27 @@ impl MatrixSize {
     }
 }
 
+/* ---- ??? !!!
+impl HiCConfig {
+    pub fn from_ui_inputs(
+        resolution: &str,
+        chromosome: Option<&str>,
+        bin_range_start: Option<&str>,
+        bin_range_end: Option<&str>,
+        normalization: Option<&str>,
+    ) -> Self {
+        use crate::parser::config_from_ui::*;  // Same 4 helpers
+        
+        Self {
+            resolution: parse_resolution(resolution, 1_000_000),
+            chromosome: parse_chromosome(chromosome),
+            bin_range: parse_bin_range(bin_range_start, bin_range_end),
+            normalization: parse_normalization(normalization),
+            // HiC-specific fields handled here
+        }
+    }
+}
+*/
 /// Configuration for Hi-C data extraction
 #[derive(Debug, Clone)]
 pub struct HiCConfig {

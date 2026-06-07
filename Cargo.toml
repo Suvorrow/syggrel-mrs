@@ -9,7 +9,7 @@ rust-version = { workspace = true }
 
 [workspace]
 members = [
-    ".", 
+    ".", "file_picker", 
     "mrs_exploring_kit",
     "ui",
 ]
@@ -19,23 +19,35 @@ resolver = "2"
 [workspace.package]
 version = "0.1.0"
 rust-version = "1.85"
+edition = "2024"
 
 [workspace.dependencies]
-dioxus = { version = "0.7.3", features = ["router", "desktop"] }
-dioxus-desktop = { version = "0.7.3", features = ["transparent",]}
-dioxus-router = "0.7.3"
+dioxus = { version = "0.7", features = ["router", "desktop"] }
+dioxus-desktop = { version = "0.7", features = ["transparent",]}
+dioxus-router = "0.7"
+# HDF5 for .cool parser
+hdf5 = { package = "hdf5-metno", version = "0.12.4" }
+hdf5-sys = "0.8"
+
+itertools = "0.14"
+
+bincode ={ version = "3.0" }
+csv = "1.4"
 # Core mathematical computing
-ndarray = "0.17.2"
-numpy = "0.28.0"
-nalgebra = "0.34.1"
-petgraph = "0.8.3"
-pyo3 = { version = "=0.28.2", features = ["abi3-py311"], default-features = false }
-statrs = "0.18.0"
-tao = "0.35.0"
+ndarray = "0.17"
+numpy = "0.28"
+# Optional output formats (for cool-parser-full feature)
+ndarray-npy = "0.10"
+
+nalgebra = "0.34"
+petgraph = "0.8"
+pyo3 = { version = "=0.28.3", features = ["abi3-py311"], default-features = false }
+statrs = "0.18"
+tao = "0.35"
 
 # Image processing
-image = "0.25.10"
-imageproc = "0.26.1"
+image = "0.25"
+imageproc = "0.26"
 
 # Serialization and configuration
 serde ={ version = "1.0", features = ["derive"] }
@@ -49,14 +61,15 @@ tracing = "0.1"
 tracing-subscriber = "0.3.23"
 
 # Performance
-rayon = "1.10"
+rayon = "1.12"
 
 [dependencies]
 dioxus = { workspace = true }
 dioxus-router = { workspace = true }
 
 ui = { path = "ui" }
-mrs_exploring_kit ={ path = "mrs_exploring_kit" }
+mrs_exploring_kit = { path = "mrs_exploring_kit" }
+file_picker = { path = "file_picker" }
 
 ndarray ={ workspace = true }
 numpy = { workspace = true }

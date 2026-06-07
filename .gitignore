@@ -59,6 +59,7 @@ ios/Pods/
 !.vscode/extensions.json
 
 # ---- Config & security ----
+.aider.conf.yml
 *.conf
 *.pem
 *.key

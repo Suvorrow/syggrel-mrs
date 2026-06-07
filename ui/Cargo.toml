@@ -1,14 +1,15 @@
 [package]
 name = "ui"
 rust-version = { workspace = true }
-version = { workspace = true }
-edition = "2024"
+version.workspace = true
+edition.workspace = true
 
 [dependencies]
 dioxus = { workspace = true, features = ["router"] }
 dioxus-desktop = { workspace = true, features = ["transparent"] }
 dioxus-router = { workspace = true }
 
+file_picker ={ path = "../file_picker" }
 mrs_exploring_kit ={ path = "../mrs_exploring_kit"}
 
 [build-dependencies]

@@ -1,0 +1,59 @@
+//! Native file dialog utilities for Syggrel-MRS.
+
+#![cfg_attr(docsrs, feature(doc_cfg))]
+#![warn(missing_docs, rust_2018_idioms, unused_lifetimes)]
+#![deny(unsafe_code)]
+
+use std::path::PathBuf;
+
+mod picker;
+mod types;
+
+pub use picker::{pick_file, pick_directory, pick_files, pick_save_file};
+pub use types::{FileFilter, input_genomic_filters, output_serialization_filters, all_actual_filters};
+
+/// Pick a single file using Syggrel-MRS's default genomic input filters ('.cool', '.hic').
+/// 
+/// Equivalent to pick_file(input_genomic_filters())'.
+#[inline]
+pub async fn pick_genomic_input() -> Option<PathBuf> {
+    pick_file(input_genomic_filters()).await
+}
+
+/// Pick a single file using Syggrel-MRS's default serialization output filters.
+/// 
+/// Equivalent to 'pick_file(output_serialization_filters())'.
+#[inline]
+pub async fn pick_serialization_output() -> Option<PathBuf> {
+    use rfd::AsyncFileDialog;
+
+    let mut dialog = AsyncFileDialog::new()
+        .set_title("Save Matrix Output")
+        .set_file_name("output_matrix.csv");
+
+    for filter in output_serialization_filters() {
+        let (name, extensions) = filter.as_rfd_filter();
+        dialog = dialog.add_filter(name, extensions);
+    }
+
+    dialog
+        .save_file()
+        .await
+        .map(|handle| handle.path().to_path_buf())
+}
+
+/// Pick a single file using all Syggrel-MRS supported formats.
+/// 
+/// Equivalent to 'pick_file(all_actual_filters())'.
+#[inline]
+pub async fn pick_any_mrs_file() -> Option<PathBuf> {
+    pick_file(all_actual_filters()).await
+}
+
+/// Pick a directory for saving output files.
+/// 
+/// Equivalent to 'pick_directory()'.
+#[inline]
+pub async fn pick_output_directory() -> Option<PathBuf> {
+    pick_directory().await
+}
