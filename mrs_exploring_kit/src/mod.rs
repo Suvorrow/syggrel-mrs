@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2025 Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>
+// SPDX-License-Identifier: GPL-3.0-only
+
 //! Core mathematical algorithms for Syggrel-MRS gRNA safety assessment.
 //! 
 //! This module provides the main computational engines that transform genomic targets 

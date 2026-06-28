@@ -92,3 +92,6 @@ yarn-error.log*
 coverage/
 *.gcov
 *.lcov
+
+AGENTS.md
+.aider*

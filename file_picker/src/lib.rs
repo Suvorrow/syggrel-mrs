@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2025 Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>
+// SPDX-License-Identifier: GPL-3.0-only
+
 //! Native file dialog utilities for Syggrel-MRS.
 
 #![cfg_attr(docsrs, feature(doc_cfg))]

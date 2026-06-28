@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2025 Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>
+// SPDX-License-Identifier: GPL-3.0-only
+
 use dioxus::prelude::*;
 use syggrel_mrs::{GenomicTarget, mrs_algorithms::compute_topological_risk};
 

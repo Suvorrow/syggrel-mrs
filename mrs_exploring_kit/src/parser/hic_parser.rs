@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2025 Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>
+// SPDX-License-Identifier: GPL-3.0-only
+
 use ndarray::Array2;
 use std::process::Command;
 use std::path::Path;
@@ -181,7 +184,8 @@ fn parse_coo_output(
 
     let mut contact_matrix = matrix_size.create_zeroed_matrix();
 
-    // Parse COO format: bin1\tbin2\tcount\n
+    // Parse COO format: bin1	bin2	count
+
     for line in content.lines() {
         let parts: Vec<&str> = line.split_whitespace().collect();
         if parts.len() >= 3 &&

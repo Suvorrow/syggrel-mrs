@@ -1,15 +1,16 @@
 [package]
 name = "mrs_exploring_kit"
-edition = "2024"
+edition.workspace = true
 version.workspace = true
 rust-version.workspace = true
 description = "Mathematical and genomic parsing utilities for Syggrel-MRS project"
+license.workspace = true
 
 [dependencies]
 itertools = { workspace = true }
 thiserror = { workspace = true }
 
-ndarray ={ workspace = true }
+ndarray = { workspace = true }
 ndarray-npy = { workspace = true, optional = true }
 
 # Output format support (feature-gated to minimize deps)
@@ -17,7 +18,7 @@ bincode = { workspace = true, optional = true }
 csv = { workspace = true, optional = true }
 hdf5 = { workspace = true }
 
-serde ={ workspace = true, features = ["derive"], optional = true }
+serde = { workspace = true, features = ["derive"], optional = true }
 
 [features]
 default = ["serializer-csv"]

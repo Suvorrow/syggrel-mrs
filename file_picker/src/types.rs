@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2025 Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>
+// SPDX-License-Identifier: GPL-3.0-only
+
 //! Type definitions for file dialog filters.
 
 use std::borrow::Cow;

@@ -1,15 +1,16 @@
 [package]
 name = "syggrel-mrs"
-authors = ["Suvorrow <suvoraum@gmail.com>"]
-edition = "2024"
+authors = ["Mikhail Suvorau aka Suvorrow <suvoraum@gmail.com>"]
+edition = { workspace = true }
 version = { workspace = true }
 rust-version = { workspace = true }
+license = { workspace = true }
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [workspace]
 members = [
-    ".", "file_picker", 
+    ".", "file_picker",
     "mrs_exploring_kit",
     "ui",
 ]
@@ -20,6 +21,7 @@ resolver = "2"
 version = "0.1.0"
 rust-version = "1.85"
 edition = "2024"
+license = "GPL-3.0-only"
 
 [workspace.dependencies]
 dioxus = { version = "0.7", features = ["router", "desktop"] }
@@ -89,4 +91,3 @@ tracing-subscriber = { workspace = true }
 
 [dev-dependencies]
 tokio-test = "0.4"
-

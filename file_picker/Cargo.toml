@@ -4,6 +4,7 @@ edition.workspace = true
 version.workspace = true
 rust-version.workspace = true
 description = "Native file dialog utilities for Syggrel-MRS software"
+license.workspace = true
 
 [dependencies]
 rfd = "0.17"

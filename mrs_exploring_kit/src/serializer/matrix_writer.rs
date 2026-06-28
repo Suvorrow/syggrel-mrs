@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2025 Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>
+// SPDX-License-Identifier: GPL-3.0-only
+
 //! Modular matrix serialization layer.
 //! 
 //! Provides a trait-based API for writing 'ndarray::Array2<f64> matrices

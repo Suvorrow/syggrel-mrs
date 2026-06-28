@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2025 Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>
+// SPDX-License-Identifier: GPL-3.0-only
+
 //! Syggrel-MRS: Topologal-Informational Validator for Genomic Instability
 //! 
 //! Core mathematical framework for assessing gRNA safety through
@@ -21,4 +24,3 @@ pub fn App() -> Element {
 // Re-export the algorithms through mrs_algorithms
 pub use types::*;
 pub use errors::*;
-

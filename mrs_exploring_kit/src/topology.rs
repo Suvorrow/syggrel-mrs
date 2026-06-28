@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2025 Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>
+// SPDX-License-Identifier: GPL-3.0-only
+
 use pyo3::prelude::*;
 use pyo3::types::PyModule;
 use numpy::PyArray2;
@@ -37,7 +40,7 @@ def compute_chromatin_topology(contact_matrix):
 
         use std::ffi::CStr;
         let python_code_cstr = CStr::from_bytes_until_nul(PYTHON_CODE_STR.as_bytes())
-            .expect("Python code string should not contain interior nulls and should end with \\0");
+            .expect("Python code string should not contain interior nulls and should end with \0");
         
         let module_name_cstr = c"gudhi_module.py";
         let module_name_short_cstr = c"gudhi_module";

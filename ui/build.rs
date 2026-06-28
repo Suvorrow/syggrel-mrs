@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2025 Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>
+// SPDX-License-Identifier: GPL-3.0-only
+
 use glob::glob;
 use std::error::Error;
 use std::fs::{self, File};
@@ -22,7 +25,8 @@ fn main() -> Result<(), Box<dyn Error>> {
         println!("cargo:rerun-if-changed={}", path_str);
     }
 
-    let mut scss_contents = String::from("/* */\n");
+    let mut scss_contents = String::from("/* */
+");
 
     let mut sorted_paths = scss_paths;
     sorted_paths.sort();
@@ -30,7 +34,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     for path in &sorted_paths {
         let data = fs::read_to_string(path)?;
         scss_contents.push_str(&data);
-        scss_contents.push('\n');
+        scss_contents.push('
+');
     }
 
     let format = Format {
@@ -60,7 +65,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     // Also rerun if this build script itself changes
     println!("cargo:rerun-if-changed=build.rs");
 
-    let mut scss_contents = String::from("/* */\n");
+    let mut scss_contents = String::from("/* */
+");
 
     let mut sorted_paths = scss_paths;
     sorted_paths.sort();
@@ -69,7 +75,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     for path in &sorted_paths {
         let data = fs::read_to_string(path)?;
         scss_contents.push_str(&data);
-        scss_contents.push('\n');
+        scss_contents.push('
+');
     }
 
     //Define the output format (compressed, expanded, etc.)

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2025 Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>
+// SPDX-License-Identifier: GPL-3.0-only
+
 #![allow(non_snake_case)]
 use dioxus::prelude::*;
 use dioxus::desktop::{window, use_window};
