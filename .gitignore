@@ -1,5 +1,6 @@
 # ---- Rust ----
 /target
+**/target/
 **/*.rs.bk
 
 data/
@@ -80,6 +81,7 @@ yggdrasil
 # ---- Debug & system ----
 *.dSYM/
 *.map
+*.pdb
 
 # ---- Logs ----
 logs

@@ -25,8 +25,10 @@ fn main() -> Result<(), Box<dyn Error>> {
         println!("cargo:rerun-if-changed={}", path_str);
     }
 
-    let mut scss_contents = String::from("/* */
-");
+    let mut scss_contents = String::from(
+        "/* */
+",
+    );
 
     let mut sorted_paths = scss_paths;
     sorted_paths.sort();
@@ -34,8 +36,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     for path in &sorted_paths {
         let data = fs::read_to_string(path)?;
         scss_contents.push_str(&data);
-        scss_contents.push('
-');
+        scss_contents.push('\n');
     }
 
     let format = Format {
@@ -56,16 +57,16 @@ fn main() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 /*
-    // Tell Cargo to rerun script if any of the found .scss files or the script itself changes
-    for path in &scss_paths {
-        // Convert PathBuf to &str and then to a string slice relative to current dir for cargo:rerun-if-changed
-        let path_str = path.to_string_lossy();
-        println!("cargo:rerun-if-changed={}", path_str);
-    }
-    // Also rerun if this build script itself changes
-    println!("cargo:rerun-if-changed=build.rs");
+// Tell Cargo to rerun script if any of the found .scss files or the script itself changes
+for path in &scss_paths {
+    // Convert PathBuf to &str and then to a string slice relative to current dir for cargo:rerun-if-changed
+    let path_str = path.to_string_lossy();
+    println!("cargo:rerun-if-changed={}", path_str);
+}
+// Also rerun if this build script itself changes
+println!("cargo:rerun-if-changed=build.rs");
 
-    let mut scss_contents = String::from("/* */
+let mut scss_contents = String::from("/* */
 ");
 
     let mut sorted_paths = scss_paths;
