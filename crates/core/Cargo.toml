@@ -1,0 +1,29 @@
+[package]
+name = "core"
+version.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+path = "src/lib.rs"
+doctest = false
+
+[lints]
+workspace = true
+
+[features]
+default = []
+
+[dependencies]
+#================ Workspace crates ================
+ui.workspace = true
+
+#================ Dioxus framework ================
+dioxus.workspace = true
+dioxus-router.workspace = true
+
+#================ Serialization ================
+serde.workspace = true
+
+[dev-dependencies]

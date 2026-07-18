@@ -14,7 +14,7 @@ use itertools::izip;
 use ndarray::{Array1, Array2, Ix1, s};
 use thiserror::Error;
 
-use crate::serializer::write_matrix;
+use serializer::write_matrix;
 
 //---------------------------------------------------------------------------------------------
 // Error types

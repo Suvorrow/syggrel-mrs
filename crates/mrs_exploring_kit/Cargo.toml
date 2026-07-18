@@ -1,0 +1,29 @@
+[package]
+name = "mrs_exploring_kit"
+edition.workspace = true
+version.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description = "Mathematical and genomic parsing utilities for Syggrel-MRS project"
+
+[lints]
+workspace = true
+
+[lib]
+path = "src/lib.rs"
+doctest = false
+
+[features]
+default = []
+
+[dependencies]
+#================ Workspace crates ================
+serializer.workspace = true
+
+#================ External dependencies ================
+hdf5.workspace = true
+itertools.workspace = true
+ndarray.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]

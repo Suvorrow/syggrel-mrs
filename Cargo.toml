@@ -1,93 +1,86 @@
-[package]
-name = "syggrel-mrs"
-authors = ["Mikhail Suvorau aka Suvorrow <suvoraum@gmail.com>"]
-edition = { workspace = true }
-version = { workspace = true }
-rust-version = { workspace = true }
-license = { workspace = true }
-
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [workspace]
-members = [
-    ".", "file_picker",
-    "mrs_exploring_kit",
-    "ui",
-]
-
 resolver = "2"
+members = [
+    "crates/mrs_app",
+    "crates/core",
+    "crates/file_picker",
+    "crates/mrs_exploring_kit",
+    "crates/parser",
+    "crates/serializer",
+    "crates/ui",
+]
+default-members = ["crates/mrs_app"]
 
 [workspace.package]
 version = "0.1.0"
 rust-version = "1.85"
 edition = "2024"
 license = "GPL-3.0-only"
+authors = ["Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>"]
 
 [workspace.dependencies]
+#================ Workspace member crates ================
+mrs_app = { path = "crates/mrs_app" }
+core = { path = "crates/core" }
+file_picker = { path = "crates/file_picker" }
+mrs_exploring_kit = { path = "crates/mrs_exploring_kit" }
+parser = { path = "crates/parser" }
+serializer = { path = "crates/serializer" }
+ui = { path = "crates/ui" }
+
+#================ External crates ================
+#================ Dioxus (UI framework) ================
 dioxus = { version = "0.7", features = ["router", "desktop"] }
-dioxus-desktop = { version = "0.7", features = ["transparent",]}
+dioxus-desktop = { version = "0.7", features = ["transparent"] }
 dioxus-router = "0.7"
-# HDF5 for .cool parser
+
+#================ Windowing / event loop ================
+tao = "0.35"
+
+#================ HDF5 for .hic-like parsers ================
 hdf5 = { package = "hdf5-metno", version = "0.12.4" }
 hdf5-sys = "0.8"
 
-itertools = "0.14"
-
-bincode ={ version = "3.0" }
-csv = "1.4"
-# Core mathematical computing
+#================ Core mathematical computing ================
 ndarray = "0.17"
-numpy = "0.28"
-# Optional output formats (for cool-parser-full feature)
-ndarray-npy = "0.10"
-
 nalgebra = "0.34"
 petgraph = "0.8"
-pyo3 = { version = "=0.28.3", features = ["abi3-py311"], default-features = false }
 statrs = "0.18"
-tao = "0.35"
 
-# Image processing
+#================ Python interop ================
+numpy = "0.28"
+pyo3 = { version = "=0.28.3", features = ["abi3-py311"], default-features = false }
+
+#================ Image processing ================
 image = "0.25"
 imageproc = "0.26"
 
-# Serialization and configuration
-serde ={ version = "1.0", features = ["derive"] }
+#================ Serialization and configuration ================
+serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+bincode = "3.0"
+csv = "1.4"
+ndarray-npy = "0.10"
 
-# Error handling
+#================ Utilities ================
+itertools = "0.14"
+rfd = "0.17"
+
+#================ Build tooling (for SCSS compilation) ================
+rsass = "0.29"
+glob = "0.3"
+
+#================ Error handling ================
 thiserror = "2.0.18"
 
-# Logging
+#================ Logging ================
 tracing = "0.1"
 tracing-subscriber = "0.3.23"
 
-# Performance
+#================ Performance ================
 rayon = "1.12"
 
-[dependencies]
-dioxus = { workspace = true }
-dioxus-router = { workspace = true }
-
-ui = { path = "ui" }
-mrs_exploring_kit = { path = "mrs_exploring_kit" }
-file_picker = { path = "file_picker" }
-
-ndarray ={ workspace = true }
-numpy = { workspace = true }
-pyo3 = { workspace = true }
-rayon ={ workspace = true }
-serde = { workspace = true }
-nalgebra = { workspace = true }
-statrs = { workspace = true }
-petgraph = { workspace = true }
-tao = {workspace = true }
-image = { workspace = true }
-imageproc = { workspace = true }
-serde_json = { workspace = true }
-thiserror = { workspace = true }
-tracing = { workspace = true }
-tracing-subscriber = { workspace = true }
-
-[dev-dependencies]
+#================ Dev dependencies ================
 tokio-test = "0.4"

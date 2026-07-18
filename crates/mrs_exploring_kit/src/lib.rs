@@ -1,27 +1,25 @@
 // SPDX-FileCopyrightText: 2025 Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>
 // SPDX-License-Identifier: GPL-3.0-only
-
 //! Core mathematical algorithms for Syggrel-MRS gRNA safety assessment.
-//! 
-//! This module provides the main computational engines that transform genomic targets 
-//! into multi-dimensional risk metrics using topological, information-theoretic, and 
+//!
+//! This module provides the main computational engines that transform genomic targets
+//! into multi-dimensional risk metrics using topological, information-theoretic, and
 //! chaos-theoretic approaches.
 #[allow(unused_imports)]
-use crate::types::{GenomicTarget, GRNARiskAssessment};
+use crate::types::{GRNARiskAssessment, GenomicTarget};
 
 // ---- Module Declarations ----
-pub mod topology;
-pub mod chaos_metrics; 
-pub mod info_theory;
+pub mod chaos_metrics;
 pub mod chromatic_risk;
-pub mod data_integration;
 pub mod combine_analysis;
-pub mod parser;
+pub mod data_integration;
+pub mod info_theory;
+pub mod topology;
 
 // ---- Public API Re-exports ----
-pub use topology::compute_topological_risk;
 pub use chaos_metrics::compute_chaos_metrics;
-pub use info_theory::compute_information_risk;
 pub use chromatic_risk::compute_chromatic_risk;
-pub use data_integration::load_contact_matrix;
 pub use combine_analysis::assess_grna_safety;
+pub use data_integration::load_contact_matrix;
+pub use info_theory::compute_information_risk;
+pub use topology::compute_topological_risk;

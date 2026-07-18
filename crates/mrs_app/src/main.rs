@@ -1,13 +1,15 @@
 // SPDX-FileCopyrightText: 2025 Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>
 // SPDX-License-Identifier: GPL-3.0-only
 
+use dioxus::desktop::{Config, LogicalSize, WindowBuilder};
 use dioxus::prelude::*;
 use dioxus::LaunchBuilder;
-use dioxus::desktop::{Config, LogicalSize, WindowBuilder};
-use syggrel_mrs::App;
 use std::process::ExitCode;
+use syggrel_mrs::App;
 
-// ---- Constants ----
+//---------------------------------------------------------------------------------------------
+// Constants
+//---------------------------------------------------------------------------------------------
 const APP_TITLE: &str = "Syggrel-MRS";
 const WINDOW_WIDTH: f64 = 1536.0;
 const WINDOW_HEIGHT: f64 = 864.0;
@@ -62,10 +64,8 @@ fn setup() -> Result<(), Box<dyn std::error::Error>> {
         "#,
             APP_TITLE, css_content
         ));
-    
-    LaunchBuilder::new()
-        .with_cfg(config)
-        .launch(App);
+
+    LaunchBuilder::new().with_cfg(config).launch(App);
 
     Ok(())
 }

@@ -1,0 +1,22 @@
+[package]
+name = "file_picker"
+edition.workspace = true
+version.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description = "Native file dialog utilities for Syggrel-MRS software"
+
+[lints]
+workspace = true
+
+[lib]
+path = "src/lib.rs"
+doctest = false
+
+[features]
+default = []
+
+[dependencies]
+rfd.workspace = true
+
+[dev-dependencies]
