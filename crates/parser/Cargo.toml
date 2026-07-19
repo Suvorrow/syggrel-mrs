@@ -10,7 +10,7 @@ description = "Genomic contact matrix parsers for Syggrel-MRS project"
 workspace = true
 
 [lib]
-path = "src/lib.rs"
+path = "src/parser.rs"
 doctest = false
 
 [features]

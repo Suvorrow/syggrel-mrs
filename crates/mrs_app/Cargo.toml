@@ -8,6 +8,9 @@ authors.workspace = true
 description = "Morpho-dynamic topological analysis of genomic data"
 default-run = "mrs_app"
 
+[lints]
+workspace = true
+
 [[bin]]
 name = "mrs_app"
 path = "src/main.rs"

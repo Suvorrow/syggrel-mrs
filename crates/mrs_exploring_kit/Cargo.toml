@@ -10,7 +10,7 @@ description = "Mathematical and genomic parsing utilities for Syggrel-MRS projec
 workspace = true
 
 [lib]
-path = "src/lib.rs"
+path = "src/mrs_exploring_kit.rs"
 doctest = false
 
 [features]
