@@ -4,7 +4,7 @@
 resolver = "2"
 members = [
     "crates/mrs_app",
-    "crates/core",
+    "crates/mrs_core",
     "crates/file_picker",
     "crates/mrs_exploring_kit",
     "crates/parser",
@@ -23,7 +23,7 @@ authors = ["Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>"]
 [workspace.dependencies]
 #================ Workspace member crates ================
 mrs_app = { path = "crates/mrs_app" }
-core = { path = "crates/core" }
+mrs_core = { path = "crates/mrs_core" }
 file_picker = { path = "crates/file_picker" }
 mrs_exploring_kit = { path = "crates/mrs_exploring_kit" }
 parser = { path = "crates/parser" }
@@ -73,6 +73,7 @@ rsass = "0.29"
 glob = "0.3"
 
 #================ Error handling ================
+anyhow = "1.0"
 thiserror = "2.0.18"
 
 #================ Logging ================
@@ -84,3 +85,10 @@ rayon = "1.12"
 
 #================ Dev dependencies ================
 tokio-test = "0.4"
+
+[workspace.lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ["cfg(docsrs)"] }
+
+[workspace.lints.clippy]
+dbg_macro = "warn"
+todo = "warn"

@@ -87,7 +87,7 @@ impl CoolConfig {
         normalization: Option<&str>,
         group_path: Option<&str>,
     ) -> Self {
-        use crate::parser::parser_utils::{
+        use crate::parser_utils::{
             parse_bin_range, parse_chromosome, parse_normalization, parse_resolution,
         };
 
@@ -583,7 +583,7 @@ fn sparse_to_dense_symmetric(
 
         if normalized.is_finite() && normalized >= 0.0 {
             matrix[[i, j]] = normalized;
-            matrix[[j, i]] = normalized; // ✅ Symmetrize (Cooler stores upper triangle)
+            matrix[[j, i]] = normalized; // Symmetrize (Cooler stores upper triangle)
         }
     }
 

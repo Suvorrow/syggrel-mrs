@@ -2,15 +2,13 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 #![allow(non_snake_case)]
+use crate::state::{ActiveToolType, DropdownType, UiState};
+use dioxus::desktop::{use_window, window};
 use dioxus::prelude::*;
-use dioxus::desktop::{window, use_window};
-use dioxus_router::{Routable, Outlet};
-use ui::components::{
-    dropdown::{dropdown_header, dropdown_item, DropdownPanel},
-};
-use ui::components::{HomeView, DataView, SettingsView, ToolsView};
+use dioxus_router::{Outlet, Routable};
+use ui::components::dropdown::{DropdownPanel, dropdown_header, dropdown_item};
 use ui::components::parser::ParserToolView;
-use crate::core::state::{UiState, DropdownType, ActiveToolType};
+use ui::components::{DataView, HomeView, SettingsView, ToolsView};
 
 #[derive(Clone, Copy, PartialEq)]
 enum ActiveNavButton {
@@ -59,13 +57,19 @@ pub fn AppLayout() -> Element {
     };
 
     let tools_dropdown_items = vec![
-        dropdown_item("Parser", EventHandler::new(move |_| {
-            ui_state.set(UiState::ActiveTool(ActiveToolType::Parser));
-        })),
+        dropdown_item(
+            "Parser",
+            EventHandler::new(move |_| {
+                ui_state.set(UiState::ActiveTool(ActiveToolType::Parser));
+            }),
+        ),
         dropdown_header(" ---------------- "),
-        dropdown_item("Settings", EventHandler::new(move |_| {
-            navigator.push(Route::Settings {});
-        })),
+        dropdown_item(
+            "Settings",
+            EventHandler::new(move |_| {
+                navigator.push(Route::Settings {});
+            }),
+        ),
     ];
 
     rsx! {
@@ -200,16 +204,28 @@ pub enum Route {
         Settings {},
 }
 
-#[component] fn Home() -> Element { rsx! {
-    HomeView {}
+#[component]
+fn Home() -> Element {
+    rsx! {
+        HomeView {}
 
-} }
-#[component] fn Tools() -> Element { rsx! {
-    ToolsView {}
-} }
-#[component] fn Data() -> Element { rsx! {
-    DataView {}
-} }
-#[component] fn Settings() -> Element { rsx! {
-    SettingsView {}
-} }
+    }
+}
+#[component]
+fn Tools() -> Element {
+    rsx! {
+        ToolsView {}
+    }
+}
+#[component]
+fn Data() -> Element {
+    rsx! {
+        DataView {}
+    }
+}
+#[component]
+fn Settings() -> Element {
+    rsx! {
+        SettingsView {}
+    }
+}

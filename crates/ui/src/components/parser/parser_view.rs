@@ -11,11 +11,9 @@ use std::sync::Arc;
 
 // Import COOL types (stub pr real, depending on feature flag)
 use file_picker::{pick_genomic_input, pick_serialization_output};
-use mrs_exploring_kit::parser::hic_parser::{
-    HiCConfig, NormalizationMethod, extract_contact_matrix as extract_hic,
-};
-use mrs_exploring_kit::parser::parser_utils::save_matrix_to_path;
-use mrs_exploring_kit::parser::{
+use parser::hic_parser::{HiCConfig, NormalizationMethod, extract_contact_matrix as extract_hic};
+use parser::parser_utils::save_matrix_to_path;
+use parser::{
     CoolConfig, extract_contact_matrix as extract_cool, format_matrix_stats, format_output_intent,
     format_save_confirmation,
 };

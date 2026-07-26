@@ -8,19 +8,19 @@ pub enum SerializerError {
     #[error("I/O error: {0}")]
     IoError(#[from] std::io::Error),
 
-    #[cfg(feature = "serializer-csv")]
+    #[cfg(feature = "csv")]
     #[error("CSV serialization error: {0}")]
     CsvError(#[from] csv::Error),
 
-    #[cfg(feature = "serializer-npy")]
+    #[cfg(feature = "npy")]
     #[error("NPY serialization error: {0}")]
     NpyError(String),
 
-    #[cfg(feature = "serializer-hdf5")]
+    #[cfg(feature = "hdf5")]
     #[error("HDF5 serialization error: {0}")]
     Hdf5Error(String),
 
-    #[cfg(feature = "serializer-bincode")]
+    #[cfg(feature = "bincode")]
     #[error("Bincode serialization error: {0}")]
     BincodeError(#[from] bincode::error::EncodeError),
 

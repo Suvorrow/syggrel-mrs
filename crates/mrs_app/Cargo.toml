@@ -17,7 +17,7 @@ path = "src/main.rs"
 
 [dependencies]
 #================ Workspace crates ================
-core.workspace = true
+mrs_core.workspace = true
 mrs_exploring_kit.workspace = true
 parser.workspace = true
 serializer.workspace = true
@@ -37,6 +37,7 @@ serde.workspace = true
 serde_json.workspace = true
 
 #================ Error handling ================
+anyhow.workspace = true
 thiserror.workspace = true
 
 #================ Logging ================

@@ -13,14 +13,14 @@ pub use error::{Result, SerializerError};
 pub use matrix_writer::{MatrixWriter, WriterKind, write_matrix};
 
 // Conditionally re-export writer structs (for advanced usage)
-#[cfg(feature = "serializer-csv")]
+#[cfg(feature = "csv")]
 pub use matrix_writer::CsvWriter;
 
-#[cfg(feature = "serializer-npy")]
+#[cfg(feature = "npy")]
 pub use matrix_writer::NpyWriter;
 
-#[cfg(feature = "serializer-hdf5")]
+#[cfg(feature = "hdf5")]
 pub use matrix_writer::Hdf5Writer;
 
-#[cfg(feature = "serializer-bincode")]
+#[cfg(feature = "bincode")]
 pub use matrix_writer::BincodeWriter;

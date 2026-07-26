@@ -1,15 +1,16 @@
 // SPDX-FileCopyrightText: 2025 Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>
 // SPDX-License-Identifier: GPL-3.0-only
 
+use crate::data_integration::load_contact_matrix;
+use crate::types::GenomicTarget;
+use numpy::PyArray2;
 use pyo3::prelude::*;
 use pyo3::types::PyModule;
-use numpy::PyArray2;
-use crate::types::GenomicTarget;
-use crate::mrs_algorithms::data_integration::load_contact_matrix;
 
 pub fn compute_topological_risk(target: &GenomicTarget) -> f64 {
     // Acquire the GIL and execute the Python code
-    Python::attach(|py| -> PyResult<f64> {  // Wrap in PyResult for better error handling
+    Python::attach(|py| -> PyResult<f64> {
+        // Wrap in PyResult for better error handling
         // Define the Python code as a static string
         const PYTHON_CODE_STR: &str = r#"
 import numpy as np
@@ -41,30 +42,32 @@ def compute_chromatin_topology(contact_matrix):
         use std::ffi::CStr;
         let python_code_cstr = CStr::from_bytes_until_nul(PYTHON_CODE_STR.as_bytes())
             .expect("Python code string should not contain interior nulls and should end with \0");
-        
+
         let module_name_cstr = c"gudhi_module.py";
         let module_name_short_cstr = c"gudhi_module";
 
         // Create the Python module from the static code string
-        let gudhi_module =  PyModule::from_code(
+        let gudhi_module = PyModule::from_code(
             py,
             python_code_cstr,
             module_name_cstr,
-            module_name_short_cstr
-        )?; 
+            module_name_short_cstr,
+        )?;
 
         // Get the contact matrix for the target
         let contact_matrix = load_contact_matrix(target);
 
         // Convert ndarray to Pyhton object
         let py_matrix = PyArray2::from_owned_array(py, contact_matrix);
-        
+
         // Call the Python function with proper error propagation
-        let result_py_object = gudhi_module.call_method1("compute_chromatin_topology", (py_matrix,))?;
-        
+        let result_py_object =
+            gudhi_module.call_method1("compute_chromatin_topology", (py_matrix,))?;
+
         // Extract the result as f64, propagating any conversion errors
         let result_f64: f64 = result_py_object.extract()?;
 
         Ok(result_f64)
-    }).expect("Python execution failed in compute_topological_risk")
+    })
+    .expect("Python execution failed in compute_topological_risk")
 }

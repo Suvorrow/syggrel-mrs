@@ -26,4 +26,9 @@ itertools.workspace = true
 ndarray.workspace = true
 thiserror.workspace = true
 
+pyo3.workspace = true
+numpy.workspace = true
+rayon.workspace = true
+serde.workspace = true
+
 [dev-dependencies]

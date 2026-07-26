@@ -27,6 +27,7 @@ dioxus-router.workspace = true
 #================ Workspace crates
 file_picker.workspace = true
 mrs_exploring_kit.workspace = true
+parser.workspace = true
 
 [build-dependencies]
 rsass.workspace = true

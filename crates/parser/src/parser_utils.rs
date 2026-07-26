@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 //! Reusable helpers for parser configuration and logging.
-//! 
+//!
 //! Format-agnostic, Dioxus-agnostic, and testable.
-use std::path::Path;
 use ndarray::Array2;
+use std::path::Path;
 
 #[inline]
 #[must_use]
@@ -25,13 +25,15 @@ pub fn parse_chromosome(s: Option<&str>) -> Option<String> {
 #[must_use]
 pub fn parse_bin_range(start: Option<&str>, end: Option<&str>) -> Option<(usize, usize)> {
     match (start, end) {
-        (Some(s), Some(e)) => {
-            s.parse::<usize>().ok().and_then(|start| {
-                e.parse::<usize>().ok().and_then(|end| {
-                    if start < end { Some((start, end)) } else { None }
-                })
+        (Some(s), Some(e)) => s.parse::<usize>().ok().and_then(|start| {
+            e.parse::<usize>().ok().and_then(|end| {
+                if start < end {
+                    Some((start, end))
+                } else {
+                    None
+                }
             })
-        }
+        }),
         _ => None,
     }
 }
@@ -48,10 +50,10 @@ pub fn parse_normalization(s: Option<&str>) -> Option<String> {
 // Logging helpers
 //---------------------------------------------------------------------------------------------
 /// Returns a user-friendly log message describing the output path intent.
-/// 
+///
 /// # Arguments
 /// * 'output_path' - Optional path where the matrix will be saved.
-/// 
+///
 /// # Returns
 /// A formatted log message string.
 #[inline]
@@ -74,8 +76,7 @@ pub fn save_matrix_to_path(
     let matrix = Array2::from_shape_vec((rows, cols), data.to_vec())
         .map_err(|e| format!("Matrix shape mismatch: {e}"))?;
 
-    crate::serializer::write_matrix(&matrix, path, None)
-        .map_err(|e| format!("Serialization failed: {e}"))
+    serializer::write_matrix(&matrix, path, None).map_err(|e| format!("Serialization failed: {e}"))
 }
 
 #[inline]
@@ -103,8 +104,15 @@ pub fn format_matrix_stats(matrix: &Array2<f64>) -> Vec<String> {
     let density = (non_zero as f64 / total as f64 * 100.0).max(0.0).min(100.0);
 
     vec![
-        format!("📐 Dimensions: {} × {} ({} total entries)", rows, cols, total),
+        format!(
+            "📐 Dimensions: {} × {} ({} total entries)",
+            rows, cols, total
+        ),
         format!("🔢 Non-zero entries: {}", non_zero),
-        format!("📊 Data density: {:.2}% | Sparsity: {:.2}%", density, 100.0 - density),
+        format!(
+            "📊 Data density: {:.2}% | Sparsity: {:.2}%",
+            density,
+            100.0 - density
+        ),
     ]
 }

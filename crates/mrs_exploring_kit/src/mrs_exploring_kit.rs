@@ -8,6 +8,8 @@
 #[allow(unused_imports)]
 use crate::types::{GRNARiskAssessment, GenomicTarget};
 
+pub mod types;
+
 // ---- Module Declarations ----
 pub mod chaos_metrics;
 pub mod chromatic_risk;
