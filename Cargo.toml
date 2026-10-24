@@ -3,15 +3,12 @@
 [workspace]
 resolver = "2"
 members = [
-    "crates/prexager_app",
-    "crates/prexager_core",
-    "crates/file_picker",
-    "crates/math_exploring_kit",
-    "crates/parser",
-    "crates/serializer",
+    "crates/prexager-app",
+    "crates/prexager-core",
+    "crates/file-picker",
     "crates/ui",
 ]
-default-members = ["crates/prexager_app"]
+default-members = ["crates/prexager-app"]
 
 [workspace.package]
 version = "0.1.0"
@@ -22,11 +19,9 @@ authors = ["Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>"]
 
 [workspace.dependencies]
 #================ Workspace member crates ================
-prexager_app = { path = "crates/prexager_app" }
-prexager_core = { path = "crates/prexager_core" }
-file_picker = { path = "crates/file_picker" }
-parser = { path = "crates/parser" }
-serializer = { path = "crates/serializer" }
+prexager-app = { path = "crates/prexager-app" }
+prexager-core = { path = "crates/prexager-core" }
+file-picker = { path = "crates/file-picker" }
 ui = { path = "crates/ui" }
 
 #================ External crates ================

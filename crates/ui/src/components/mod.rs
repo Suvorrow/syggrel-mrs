@@ -4,14 +4,12 @@
 pub mod data;
 pub mod dropdown;
 pub mod home;
-pub mod parser;
 pub mod settings;
 pub mod tools;
 
 // Re-export components for access from other modules
 pub use data::DataView;
-pub use dropdown::{dropdown_header, dropdown_item, DropdownItem, DropdownPanel};
+pub use dropdown::{DropdownItem, DropdownPanel, dropdown_header, dropdown_item};
 pub use home::HomeView;
-pub use parser::ParserToolView;
 pub use settings::SettingsView;
 pub use tools::ToolsView;

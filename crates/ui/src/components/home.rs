@@ -8,7 +8,9 @@ pub fn HomeView() -> Element {
     rsx! {
         div { class: "view-container",
             h1 { "Welcome to Prexager" }
-            p { "Advanced morphodynamic risks sentinel platform" }
+            p { "The platform that lets interactively explore 3D genome architecture from whole-nucleus
+                chromosome territories down to individual molecular structures in real time."
+            }
         }
     }
 }

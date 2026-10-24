@@ -1,28 +1,25 @@
 [package]
-name = "prexager_app"
+name = "prexager-app"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 authors.workspace = true
 description = "Morpho-dynamic topological analysis of genomic data"
-default-run = "prexager_app"
+default-run = "prexager-app"
 
 [lints]
 workspace = true
 
 [[bin]]
-name = "prexager_app"
+name = "prexager-app"
 path = "src/main.rs"
 
 [dependencies]
 #================ Workspace crates ================
-prexager_core.workspace = true
-math_exploring_kit.workspace = true
-parser.workspace = true
-serializer.workspace = true
+prexager-core.workspace = true
 ui.workspace = true
-file_picker.workspace = true
+file-picker.workspace = true
 
 #================ Dioxus ================
 dioxus.workspace = true

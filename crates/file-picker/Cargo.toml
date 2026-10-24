@@ -1,5 +1,5 @@
 [package]
-name = "file_picker"
+name = "file-picker"
 edition.workspace = true
 version.workspace = true
 rust-version.workspace = true

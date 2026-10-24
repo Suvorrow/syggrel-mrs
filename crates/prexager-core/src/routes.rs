@@ -7,7 +7,6 @@ use dioxus::desktop::{use_window, window};
 use dioxus::prelude::*;
 use dioxus_router::{Outlet, Routable};
 use ui::components::dropdown::{DropdownPanel, dropdown_header, dropdown_item};
-use ui::components::parser::ParserToolView;
 use ui::components::{DataView, HomeView, SettingsView, ToolsView};
 
 #[derive(Clone, Copy, PartialEq)]
@@ -173,15 +172,7 @@ pub fn AppLayout() -> Element {
             // Content area - Render based on the overall UI state (ui_state)
             div { class: "content-area",
                 // Check the overall UI state first
-                match ui_state() {
-                    UiState::ActiveTool(ActiveToolType::Parser) => rsx! {
-                        ParserToolView { close_tool: move || ui_state.set(UiState::None) }
-                    },
-
-                    _ => rsx! {
-                        Outlet::<Route> {}
-                    },
-                }
+                Outlet::<Route> {}
             }
         }
     }
