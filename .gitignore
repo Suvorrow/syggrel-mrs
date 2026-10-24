@@ -50,7 +50,7 @@ ios/Pods/
 
 # ---- Editor & Termux ----
 *~
-.*.sw[po]
+*.sw[po]
 .rust-analyzer
 /.idea/
 /.vscode/*
