@@ -4,7 +4,7 @@ version.workspace = true
 rust-version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "Genomic contact matrix parsers for Syggrel-MRS project"
+description = "Genomic contact matrix parsers for Prexager project"
 
 [lints]
 workspace = true

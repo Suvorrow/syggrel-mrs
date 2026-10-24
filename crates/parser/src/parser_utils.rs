@@ -101,7 +101,7 @@ pub fn format_matrix_stats(matrix: &Array2<f64>) -> Vec<String> {
     }
 
     let non_zero = matrix.iter().filter(|&&v| v > 0.0).count();
-    let density = (non_zero as f64 / total as f64 * 100.0).max(0.0).min(100.0);
+    let density = (non_zero as f64 / total as f64 * 100.0).clamp(0.0, 100.0);
 
     vec![
         format!(

@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2025 Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>
 // SPDX-License-Identifier: GPL-3.0-only
 
-//! Native file dialog utilities for Syggrel-MRS.
+//! Native file dialog utilities for Prexager app.
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
 #![warn(missing_docs, rust_2018_idioms, unused_lifetimes)]
@@ -12,19 +12,21 @@ use std::path::PathBuf;
 mod picker;
 mod types;
 
-pub use picker::{pick_file, pick_directory, pick_files, pick_save_file};
-pub use types::{FileFilter, input_genomic_filters, output_serialization_filters, all_actual_filters};
+pub use picker::{pick_directory, pick_file, pick_files, pick_save_file};
+pub use types::{
+    FileFilter, all_actual_filters, input_genomic_filters, output_serialization_filters,
+};
 
-/// Pick a single file using Syggrel-MRS's default genomic input filters ('.cool', '.hic').
-/// 
+/// Pick a single file using Prexager's default genomic input filters ('.cool', '.hic').
+///
 /// Equivalent to pick_file(input_genomic_filters())'.
 #[inline]
 pub async fn pick_genomic_input() -> Option<PathBuf> {
     pick_file(input_genomic_filters()).await
 }
 
-/// Pick a single file using Syggrel-MRS's default serialization output filters.
-/// 
+/// Pick a single file using Prexager's default serialization output filters.
+///
 /// Equivalent to 'pick_file(output_serialization_filters())'.
 #[inline]
 pub async fn pick_serialization_output() -> Option<PathBuf> {
@@ -45,16 +47,16 @@ pub async fn pick_serialization_output() -> Option<PathBuf> {
         .map(|handle| handle.path().to_path_buf())
 }
 
-/// Pick a single file using all Syggrel-MRS supported formats.
-/// 
+/// Pick a single file using all Prexager supported formats.
+///
 /// Equivalent to 'pick_file(all_actual_filters())'.
 #[inline]
-pub async fn pick_any_mrs_file() -> Option<PathBuf> {
+pub async fn pick_any_prexager_file() -> Option<PathBuf> {
     pick_file(all_actual_filters()).await
 }
 
 /// Pick a directory for saving output files.
-/// 
+///
 /// Equivalent to 'pick_directory()'.
 #[inline]
 pub async fn pick_output_directory() -> Option<PathBuf> {

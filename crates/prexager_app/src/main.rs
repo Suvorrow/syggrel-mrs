@@ -1,9 +1,9 @@
 // SPDX-FileCopyrightText: 2025 Mikhail Suvorau (Suvorrow) <suvoraum@gmail.com>
 // SPDX-License-Identifier: GPL-3.0-only
 
-mod mrs_app;
+mod prexager_app;
 
-use crate::mrs_app::App;
+use crate::prexager_app::App;
 use anyhow::{Context, Result};
 use dioxus::LaunchBuilder;
 use dioxus::desktop::{Config, LogicalSize, WindowBuilder};
@@ -11,7 +11,7 @@ use dioxus::desktop::{Config, LogicalSize, WindowBuilder};
 //---------------------------------------------------------------------------------------------
 // Constants
 //---------------------------------------------------------------------------------------------
-const APP_TITLE: &str = "Syggrel-MRS";
+const APP_TITLE: &str = "Prexager";
 const WINDOW_WIDTH: f64 = 1536.0;
 const WINDOW_HEIGHT: f64 = 864.0;
 

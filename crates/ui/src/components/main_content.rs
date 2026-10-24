@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 use dioxus::prelude::*;
-use syggrel_mrs::{GenomicTarget, mrs_algorithms::compute_topological_risk};
+use prexager::{GenomicTarget, prexager_algorithms::compute_topological_risk};
 
 #[component]
 pub fn MainContent() -> Element {
@@ -12,9 +12,7 @@ pub fn MainContent() -> Element {
         sequence: "ATCG".to_string(),
     });
 
-    let risc_score = use_memo(move || {
-        compute_topological_risk(&target())
-    });
+    let risc_score = use_memo(move || compute_topological_risk(&target()));
 
     rsx! {
         div { class: "main-content",

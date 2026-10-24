@@ -1,5 +1,5 @@
 [package]
-name = "mrs_core"
+name = "prexager_core"
 version.workspace = true
 rust-version.workspace = true
 edition.workspace = true

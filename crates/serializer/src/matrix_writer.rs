@@ -68,7 +68,7 @@ impl WriterKind {
     }
 
     /// Parse from a string.
-    pub fn from_str(s: &str) -> Option<Self> {
+    pub fn from_extension(s: &str) -> Option<Self> {
         match s.to_ascii_lowercase().as_str() {
             "csv" => Some(WriterKind::Csv),
             #[cfg(feature = "npy")]
@@ -271,7 +271,7 @@ pub fn write_matrix(matrix: &Array2<f64>, path: &Path, format_hint: Option<&str>
     let ext = raw_ext.to_ascii_lowercase();
 
     let writer_kind =
-        WriterKind::from_str(&ext).ok_or_else(|| SerializerError::UnsupportedFormat(ext))?;
+        WriterKind::from_extension(&ext).ok_or_else(|| SerializerError::UnsupportedFormat(ext))?;
 
     let writer = writer_kind.create_writer()?;
     writer.write(matrix, path)

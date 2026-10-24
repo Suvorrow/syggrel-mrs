@@ -4,7 +4,7 @@ version.workspace = true
 rust-version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "Matrix serialization utilities for Syggrel-MRS project"
+description = "Matrix serialization utilities for Prexager project"
 
 [lints]
 workspace = true

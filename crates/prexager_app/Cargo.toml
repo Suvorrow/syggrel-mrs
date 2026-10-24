@@ -1,24 +1,24 @@
 [package]
-name = "mrs_app"
+name = "prexager_app"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 authors.workspace = true
 description = "Morpho-dynamic topological analysis of genomic data"
-default-run = "mrs_app"
+default-run = "prexager_app"
 
 [lints]
 workspace = true
 
 [[bin]]
-name = "mrs_app"
+name = "prexager_app"
 path = "src/main.rs"
 
 [dependencies]
 #================ Workspace crates ================
-mrs_core.workspace = true
-mrs_exploring_kit.workspace = true
+prexager_core.workspace = true
+math_exploring_kit.workspace = true
 parser.workspace = true
 serializer.workspace = true
 ui.workspace = true

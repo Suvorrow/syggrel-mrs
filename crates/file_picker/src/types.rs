@@ -6,7 +6,7 @@
 use std::borrow::Cow;
 
 /// Afile extension filter for native file dialogs.
-/// 
+///
 /// Uses 'Cow<'static, str>' to allow both static literals and runtime-generated
 /// names without unnecessary allocations.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -19,7 +19,7 @@ pub struct FileFilter {
 
 impl FileFilter {
     /// Creates a 'FileFilter' from static strings with zero runtime allocations.
-    /// 
+    ///
     /// # Arguments
     /// * 'name' - Human-readable label shown in the file dialog (e.g. "COOL files").
     /// * 'extensions' - File extensions to match (e.g., '&["cool"]'). Use '&["*"]' for all files.
@@ -50,7 +50,7 @@ impl FileFilter {
 }
 
 //---------------------------------------------------------------------------------------------
-// Pre-built filters for Syggrel-MRS supported formats
+// Pre-built filters for Prexager supported formats
 //---------------------------------------------------------------------------------------------
 
 impl FileFilter {
@@ -109,19 +109,25 @@ impl FileFilter {
     #[must_use]
     pub fn serialization_outputs() -> &'static [Self; 4] {
         static FILTERS: [FileFilter; 4] = [
-            FileFilter::csv(), FileFilter::npy(),
-            FileFilter::hdf5(), FileFilter::bincode(),
+            FileFilter::csv(),
+            FileFilter::npy(),
+            FileFilter::hdf5(),
+            FileFilter::bincode(),
         ];
         &FILTERS
     }
 
-    /// All formats supported by Syggrel-MRS (inputs + outputs).
+    /// All formats supported by Prexager (inputs + outputs).
     #[inline]
     #[must_use]
     pub fn all_supported() -> &'static [Self; 6] {
         static FILTERS: [FileFilter; 6] = [
-            FileFilter::cool(), FileFilter::hic(), FileFilter::csv(),
-            FileFilter::npy(), FileFilter::hdf5(), FileFilter::bincode(),
+            FileFilter::cool(),
+            FileFilter::hic(),
+            FileFilter::csv(),
+            FileFilter::npy(),
+            FileFilter::hdf5(),
+            FileFilter::bincode(),
         ];
         &FILTERS
     }
@@ -143,7 +149,9 @@ impl FileFilter {
 #[must_use]
 pub fn input_genomic_filters() -> &'static [FileFilter; 3] {
     static FILTERS: [FileFilter; 3] = [
-        FileFilter::cool(), FileFilter::hic(), FileFilter::all_files(),
+        FileFilter::cool(),
+        FileFilter::hic(),
+        FileFilter::all_files(),
     ];
     &FILTERS
 }
@@ -153,19 +161,26 @@ pub fn input_genomic_filters() -> &'static [FileFilter; 3] {
 #[must_use]
 pub fn output_serialization_filters() -> &'static [FileFilter; 5] {
     static FILTERS: [FileFilter; 5] = [
-        FileFilter::csv(), FileFilter::npy(), FileFilter::hdf5(),
-        FileFilter::bincode(), FileFilter::all_files(), 
+        FileFilter::csv(),
+        FileFilter::npy(),
+        FileFilter::hdf5(),
+        FileFilter::bincode(),
+        FileFilter::all_files(),
     ];
     &FILTERS
 }
 
-/// Filter set for picking any Syggrel-MRS compatible file.
+/// Filter set for picking any Prexager compatible file.
 #[inline]
 #[must_use]
 pub fn all_actual_filters() -> &'static [FileFilter; 7] {
     static FILTERS: [FileFilter; 7] = [
-        FileFilter::cool(), FileFilter::hic(), FileFilter::csv(),
-        FileFilter::npy(), FileFilter::hdf5(), FileFilter::bincode(),
+        FileFilter::cool(),
+        FileFilter::hic(),
+        FileFilter::csv(),
+        FileFilter::npy(),
+        FileFilter::hdf5(),
+        FileFilter::bincode(),
         FileFilter::all_files(),
     ];
     &FILTERS

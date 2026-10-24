@@ -70,8 +70,8 @@ pub fn ParserToolView(props: ParserToolViewProps) -> Element {
     let mut file_format = use_signal(|| ParserFormat::Cool);
 
     // Common input state for UI elements
-    let mut input_path = use_signal(|| String::new());
-    let mut output_path = use_signal(|| String::new());
+    let mut input_path = use_signal(|| String::new);
+    let mut output_path = use_signal(|| String::new);
     let mut resolution = use_signal(|| "1000000".to_owned());
     let mut normalization_type = use_signal(|| "NONE".to_owned());
 
@@ -81,8 +81,8 @@ pub fn ParserToolView(props: ParserToolViewProps) -> Element {
 
     // HiC-specific state
     let mut chromosome = use_signal(|| "1".to_owned());
-    let mut start_bin = use_signal(|| String::new());
-    let mut end_bin = use_signal(|| String::new());
+    let mut start_bin = use_signal(|| String::new);
+    let mut end_bin = use_signal(|| String::new);
 
     // COOL-specific state
     let mut cool_group = use_signal(|| "resolutions".to_owned());
@@ -90,7 +90,7 @@ pub fn ParserToolView(props: ParserToolViewProps) -> Element {
     // UI state
     let mut is_parsing = use_signal(|| false);
     let mut progress = use_signal(|| 0.0);
-    let mut status_message = use_signal(|| String::new());
+    let mut status_message = use_signal(|| String::new);
 
     let mut log_messages = use_signal(|| {
         vec![

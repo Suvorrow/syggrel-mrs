@@ -4,7 +4,7 @@ version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
-description = "Dioxus-based user interface components for Syggrel-MRS project"
+description = "Dioxus-based user interface components for Prexager project"
 
 [lints]
 workspace = true
@@ -26,7 +26,7 @@ dioxus-router.workspace = true
 
 #================ Workspace crates
 file_picker.workspace = true
-mrs_exploring_kit.workspace = true
+math_exploring_kit.workspace = true
 parser.workspace = true
 
 [build-dependencies]

@@ -4,7 +4,7 @@ edition.workspace = true
 version.workspace = true
 rust-version.workspace = true
 license.workspace = true
-description = "Native file dialog utilities for Syggrel-MRS software"
+description = "Native file dialog utilities for Prexager software"
 
 [lints]
 workspace = true

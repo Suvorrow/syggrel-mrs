@@ -7,7 +7,7 @@ use dioxus::prelude::*;
 pub fn HomeView() -> Element {
     rsx! {
         div { class: "view-container",
-            h1 { "Welcome to Syggrel-MRS" }
+            h1 { "Welcome to Prexager" }
             p { "Advanced morphodynamic risks sentinel platform" }
         }
     }

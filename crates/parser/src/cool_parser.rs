@@ -289,8 +289,8 @@ fn resolve_target_region(
         Some(name) => {
             // 🚀 OPTIMIZATION: Pre-allocate alternative names to avoid O(N) allocations in the find loop
             let name1 = name.as_str();
-            let name2 = if name1.starts_with("chr") {
-                Cow::Borrowed(&name1[3..])
+            let name2 = if let Some(stripped) = name1.strip_prefix("chr") {
+                Cow::Borrowed(stripped)
             } else {
                 Cow::Owned(format!("chr{}", name1))
             };
